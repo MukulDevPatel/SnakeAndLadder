@@ -7,8 +7,10 @@ namespace SnakeAndLadderProgram
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Snake And Ladder Program");
+
             SnakeAndLadderPlay snakeAndLadder = new SnakeAndLadderPlay();
             snakeAndLadder.RollDie();
+            snakeAndLadder.Play();
         }
     }
 }

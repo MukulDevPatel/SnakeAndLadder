@@ -8,13 +8,34 @@ namespace SnakeAndLadderProgram
 {
     public class SnakeAndLadderPlay
     {
-        //Die show the number between 1 to 6
+        //Check No play, Snake, Ladder condotion
+
+        const int NO_PLAY = 0, LADDER = 1, SNAKE = 2;
+        
         int playerPosition = 0;
+        
         Random random = new Random();
-        public void RollDie()
+        public int RollDie()
         {
-            int die = random.Next(1, 7);
-            Console.WriteLine(die);
+            return new Random().Next(1,7);
+        }
+        public void Play()
+        {
+            int option = random.Next(0, 3);
+            switch (option)
+            {
+                case NO_PLAY:
+                    Console.WriteLine("No player for game");
+                    break;
+                case LADDER:
+                    this.playerPosition += RollDie();
+                    Console.WriteLine("Ladder - moved ahead " + RollDie());
+                    break;
+                case SNAKE:
+                    this.playerPosition -= RollDie();
+                    Console.WriteLine("Snake - move behind " + RollDie());
+                    break;
+            }
         }
     }
 }
