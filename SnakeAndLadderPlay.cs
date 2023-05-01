@@ -49,7 +49,8 @@ namespace SnakeAndLadderProgram
                 {
                     playerPosition = 0;
                     Console.WriteLine("You went zero. So restart game from 0");
-                }else if (this.playerPosition == WINNING_POSITION)
+                }
+                if (this.playerPosition == WINNING_POSITION)
                 {
                     Console.WriteLine("Player position: " + playerPosition);
                 }
