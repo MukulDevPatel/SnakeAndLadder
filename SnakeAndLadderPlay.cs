@@ -25,7 +25,8 @@ namespace SnakeAndLadderProgram
         }
 
 
-        //Player get random die value amd move Snake and Ladder position 
+        //Player get random die value amd move Snake and Ladder position
+        //If player get number over the 100, They are stay in same postion
         public void Play()
         {
             while (this.playerPosition < WINNING_POSITION)
@@ -45,15 +46,19 @@ namespace SnakeAndLadderProgram
                         Console.WriteLine("Snake - move behind " + RollDie());
                         break;
                 }
+                
                 if (this.playerPosition == 0)
                 {
-                    playerPosition = 0;
                     Console.WriteLine("You went zero. So restart game from 0");
-                }else if (this.playerPosition == WINNING_POSITION)
+                    Console.WriteLine("Player position:  " + playerPosition);
+                    Console.WriteLine("Die count: " + count);
+                }else if (this.playerPosition > 100)
                 {
-                    Console.WriteLine("Player position: " + playerPosition);
+                    this.playerPosition -= RollDie();
+                    Console.WriteLine("You get number over to 100, So stay in same position "+playerPosition);
                 }
             }
+            Console.WriteLine("Congrats! You have reached winning position 100");
         }
     }
 }
