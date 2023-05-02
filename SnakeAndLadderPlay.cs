@@ -9,16 +9,20 @@ namespace SnakeAndLadderProgram
     public class SnakeAndLadderPlay
     {
         //Check No play, Snake, Ladder condotion
+        //This game are played by two player
 
         const int NO_PLAY = 0, LADDER = 1, SNAKE = 2, WINNING_POSITION = 100;
         int count = 0;
-        int playerPosition = 0;
+        int playerPosition1 = 0;
+        int playerPosition2 = 0;
+        int currentPlayer = 1;
+        bool ladder = false;
 
         //Random Die value
         Random random = new Random();
         public int RollDie()
         {
-            int die = random.Next(1, 7); ;
+            int die = random.Next(1, 7); 
             Console.WriteLine("Die value: " + die);
             count++;
             return die;
@@ -29,38 +33,89 @@ namespace SnakeAndLadderProgram
         //If player get number over the 100, They are stay in same postion
         public void Play()
         {
-            while (this.playerPosition < WINNING_POSITION)
+            while (this.playerPosition1 < WINNING_POSITION && this.playerPosition2 < WINNING_POSITION)
             {
-                int option = random.Next(0, 3);
+                ladder = false;
+                int option = random.Next(1, 3);
+
+                //Assign current player position to players position 
+                int currentPlayerPosition;
+                if (currentPlayer == 1)
+                {
+                    currentPlayerPosition = this.playerPosition1;
+                }
+                else
+                {
+                    currentPlayerPosition = this.playerPosition2;
+                }
+
+                //Both player get their die value one by one
                 switch (option)
                 {
                     case NO_PLAY:
                         Console.WriteLine("No player for game");
                         break;
                     case LADDER:
-                        this.playerPosition += RollDie();
+                        currentPlayerPosition += RollDie();
                         Console.WriteLine("Ladder - moved ahead " + RollDie());
                         break;
                     case SNAKE:
-                        this.playerPosition -= RollDie();
+                        currentPlayerPosition = RollDie();
+                        if (currentPlayerPosition - RollDie() > 0)
+                            currentPlayerPosition -= RollDie();
+                        else
+                            currentPlayerPosition = 0;
                         Console.WriteLine("Snake - move behind " + RollDie());
                         break;
                 }
-                
-                if (this.playerPosition == 0)
+
+                if (currentPlayerPosition < 0)
                 {
-                    //Console.WriteLine("Player position:  " + playerPosition);
-                    Console.WriteLine("You went zero. So restart game from 0");
-                    
-                }else if (this.playerPosition > 100)
-                {
-                    this.playerPosition -= RollDie();
-                    Console.WriteLine("You get number over to 100, So stay in same position "+playerPosition);
+                    Console.WriteLine("You {0} went zero. So restart game from 0",currentPlayer);
+                    Console.WriteLine("Player position:  " + currentPlayer);
+                    //Console.WriteLine("Die count: " + count);
+
                 }
-                Console.WriteLine("Current position: " + playerPosition);
-                count++;
+                else if (currentPlayerPosition > 100)
+                {
+                    currentPlayerPosition -= RollDie();
+                    Console.WriteLine("You get number over to 100, So stay in same position "+currentPlayer);
+                }
+                if (currentPlayer == 1)
+                {
+                    playerPosition1 = currentPlayerPosition;
+                }else
+                {
+                    playerPosition2 = currentPlayerPosition;
+                }
+                Console.WriteLine("Player 1: " + playerPosition1);
+                Console.WriteLine("Player 2: " + playerPosition2);
+                
+                if (currentPlayerPosition == 100)
+                {
+                    Console.WriteLine("Congrats! "+currentPlayer+ ", You have reached winning position 100");
+                    break;
+                }
+
+                //If ladder is not obtained, switch to other player
+                if (!ladder)
+                {
+                    currentPlayer = (currentPlayer == 1) ? 2 : 1;
+                }
             }
-            Console.WriteLine("Congrats! You have reached winning position 100");
+            
+            //Check which player in case game did not end while loop
+            if (playerPosition1 == 100 && playerPosition2 == 100)
+            {
+                Console.WriteLine("It is tie");
+            }else if(playerPosition1 == 100)
+            {
+                Console.WriteLine("Player 1 won the game");
+            }
+            else
+            {
+                Console.WriteLine("Player 2 won the game");
+            }
             Console.WriteLine("Number of die roll to win: " + count);
         }
     }
