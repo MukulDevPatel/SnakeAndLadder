@@ -49,16 +49,19 @@ namespace SnakeAndLadderProgram
                 
                 if (this.playerPosition == 0)
                 {
+                    //Console.WriteLine("Player position:  " + playerPosition);
                     Console.WriteLine("You went zero. So restart game from 0");
-                    Console.WriteLine("Player position:  " + playerPosition);
-                    Console.WriteLine("Die count: " + count);
+                    
                 }else if (this.playerPosition > 100)
                 {
                     this.playerPosition -= RollDie();
                     Console.WriteLine("You get number over to 100, So stay in same position "+playerPosition);
                 }
+                Console.WriteLine("Current position: " + playerPosition);
+                count++;
             }
             Console.WriteLine("Congrats! You have reached winning position 100");
+            Console.WriteLine("Number of die roll to win: " + count);
         }
     }
 }
