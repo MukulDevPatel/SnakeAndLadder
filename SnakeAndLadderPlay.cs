@@ -27,6 +27,7 @@ namespace SnakeAndLadderProgram
 
         //Player get random die value amd move Snake and Ladder position
         //If player get number over the 100, They are stay in same postion
+        //Count number of die roll till winning posotion
         public void Play()
         {
             while (this.playerPosition < WINNING_POSITION)
@@ -49,7 +50,6 @@ namespace SnakeAndLadderProgram
                 
                 if (this.playerPosition == 0)
                 {
-                    //Console.WriteLine("Player position:  " + playerPosition);
                     Console.WriteLine("You went zero. So restart game from 0");
                     
                 }else if (this.playerPosition > 100)
